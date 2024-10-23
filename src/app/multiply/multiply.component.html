@@ -71,9 +71,18 @@
 <p>{{ speed }} / {{ reminder + 1 }} </p>
 <button (click)="start()">Go</button>
 
-@if(x !== null) {
-<div>
-  Question {{ x }} * {{ y }} = <input type="number" [(ngModel)]="answer">
-  
+
+<div [hidden]="x === null">
+  Question is {{ x }} * {{ y }} = <input type="number" #myAnswer (keyup)=guess() [(ngModel)]="answer">
+
 </div>
-}
+
+<div>
+  <ul style="display: flex; flex-direction: column-reverse;">
+  @for (item of numbers; track item ) {
+    @if(item.answered) {
+    <li>{{ item.x }} * {{ item.y }} {{ item.correct }} ++</li>
+    }
+  }
+</ul>
+</div>
